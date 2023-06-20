@@ -1,9 +1,9 @@
 [submodule "modbuslib"]
-	path = modbuslib
-	url = git@github.com:camradeling/modbuslib.git
+        path = modbuslib
+        url = https://github.com/camradeling/modbuslib.git
 [submodule "channellib"]
-	path = channellib
-	url = git@github.com:camradeling/channellib.git
+        path = channellib
+        url = https://github.com/camradeling/channellib.git
 [submodule "threadlib"]
-	path = threadlib
-	url = git@github.com:camradeling/threadlib.git
+        path = threadlib
+        url = https://github.com/camradeling/threadlib.git
