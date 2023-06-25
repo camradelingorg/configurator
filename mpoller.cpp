@@ -1,8 +1,8 @@
+#include "mxmlconf.h"
 #include "mpoller.h"
 //----------------------------------------------------------------------------------------------------------------------
 void MPoller::init_module()
 {
-	//CHPL = shared_ptr<ChanPool>(new ChanPool(new ChannelLib::Logger));
 	CHPL = shared_ptr<ChanPool>(new ChanPool());
     CHPL->chp = CHPL;
 	MBCL = shared_ptr<ModbusClient>(new ModbusClient);
@@ -12,10 +12,11 @@ void MPoller::init_module()
         const char* ext = mxmlGetText(loggernode,NULL);
         if(ext && string(ext) == "true") CHPL->logger = new ChannelLib::Logger;
     }
-	CHPL->init(config);
+    shared_ptr<ChanPoolConfig> conf = shared_ptr<ChanPoolConfig>(mxml_parse_config(config));
+	CHPL->init(conf.get());
 	if(CHPL->allChan.size() > 1)
 	{
-		fprintf(stderr, "multiple channels in config, closing...\n");
+		CHPLWRITELOG("multiple channels in config, closing...\n");
 		exit(-1);
 	}
 	for(int i = 0; i < CHPL->allChan.size(); i++)
@@ -75,7 +76,7 @@ void MPoller::process_channel(weak_ptr<BasicChannel> chan)
             {
                 if (sessionsActive.at(j).fd == packet->getfd())
                 {
-                    currentSession = &sessionsActive[j];
+                	currentSession = &sessionsActive[j];
                     currentSession->InSeq = packet->seqnum;
                     InStream.insert(InStream.end(),packet->Data(),packet->Data()+packet->Length());
                     break;

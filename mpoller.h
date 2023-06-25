@@ -2,6 +2,7 @@
 #define MPOLLER_H
 //----------------------------------------------------------------------------------------------------------------------
 #include "chanlib_export.h"
+#include "mxml.h"
 #include "programthread.h"
 #include "modbus_client.h"
 #include "modbus_config.h"
