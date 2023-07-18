@@ -21,6 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
+        token: ${{ secrets.MY_REPO_PAT }}
         submodules: recursive
         
     - name: Configure CMake
